@@ -2,20 +2,21 @@
 import time
 from http.server import HTTPServer
 from server import Server
+import ssl
+import json
 
-HOST_NAME = 'localhost'
-PORT_NUMBER = 8000
+with open('settings.json', 'r') as json_file:
+    config = json.load(json_file)
 
 if __name__ == '__main__':
-    httpd = HTTPServer((HOST_NAME, PORT_NUMBER), Server)
-    print(time.asctime(), 'Server Starts - %s:%s' % (HOST_NAME, PORT_NUMBER))
+    httpd = HTTPServer((config["HOST_NAME"], config["PORT_NUMBER"]), Server)
+    httpd.socket = ssl.wrap_socket (httpd.socket, 
+        keyfile=f"keys/priv.key", 
+        certfile=f'keys/priv.crt', server_side=True)
+    print(time.asctime(), 'Server Starts - %s:%s' % (config["HOST_NAME"], config["PORT_NUMBER"]))
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print(time.asctime(), 'Server Stops - %s:%s' % (HOST_NAME, PORT_NUMBER))
-
-# httpd.socket = ssl.wrap_socket (httpd.socket, 
-#         keyfile="/etc/letsencrypt/live/{domain}/fullchain.pem", 
-#         certfile='/etc/letsencrypt/live/{domain}/privkey.pem', server_side=True)
+    print(time.asctime(), 'Server Stops - %s:%s' % (config["HOST_NAME"], config["PORT_NUMBER"]))

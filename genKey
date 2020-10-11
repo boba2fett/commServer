@@ -1,0 +1,7 @@
+#!/bin/bash
+
+openssl genrsa -out keys/priv.key 2048
+openssl req -new -key keys/priv.key -out keys/priv.csr
+openssl x509 -req -days 1095 -in keys/priv.csr -signkey keys/priv.key -out keys/priv.crt
+
+# date +%s | sha256sum | base64 | head -c 64 ; echo

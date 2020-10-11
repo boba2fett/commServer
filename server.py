@@ -5,7 +5,10 @@ from http.server import BaseHTTPRequestHandler
 from response.commHandler import CommHandler
 from response.badRequestHandler import BadRequestHandler
 from response.forbiddenRequestHandler import ForbiddenRequestHandler
+import json
 
+with open('settings.json', 'r') as json_file:
+    config = json.load(json_file)
 
 class Server(BaseHTTPRequestHandler):
     def do_HEAD(self):
@@ -30,7 +33,7 @@ class Server(BaseHTTPRequestHandler):
         split_path = os.path.splitext(self.path)
         print(split_path)
         print(post_body)
-        if post_body!=b"OWJlYzcxZTRlNDQyMjE1ZGFiY2FmZmFiM2NiZGE0MWJmNDM0MGFlZWRhNTZlZjRm":# date +%s | sha256sum | base64 | head -c 64 ; echo
+        if post_body!=bytes(config["token"],"utf8"):
             handler=ForbiddenRequestHandler()
         else:
             if split_path[0][1::] in os.listdir("routes"):
