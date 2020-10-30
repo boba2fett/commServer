@@ -16,13 +16,11 @@ class Server(BaseHTTPRequestHandler):
 
     def do_GET(self):
         split_path = os.path.splitext(self.path)
-        print(split_path)
         if split_path[0][1::] in os.listdir("routes"):
             handler = CommHandler()
             handler.find(self.path)
         else:
             handler = BadRequestHandler()
- 
         self.respond({
             'handler': handler
         })

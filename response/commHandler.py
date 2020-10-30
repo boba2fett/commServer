@@ -10,8 +10,7 @@ class CommHandler(RequestHandler):
     def find(self, routeData):
         try:
             self.setStatus(200)
-            self.contents = routeData
-            os.popen(f'routes{routeData}')
+            self.contents = str(os.popen(f'routes{routeData}').read().replace("\n","  "))
             return True
         except:
             self.setStatus(404)

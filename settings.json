@@ -1,6 +1,6 @@
 {
     "HOST_NAME" : "0.0.0.0",
-    "PORT_NUMBER" : 8888,
-    "domain":"b2f.myonlineportal.org",
+    "PORT_NUMBER" : 8000,
+    "domain":"b2f.ddnss.org",
     "token":"OWJlYzcxZTRlNDQyMjE1ZGFiY2FmZmFiM2NiZGE0MWJmNDM0MGFlZWRhNTZlZjRm"
 }
