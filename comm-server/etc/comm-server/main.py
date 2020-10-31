@@ -21,9 +21,9 @@ class HTTPServerV6(HTTPServer):
     address_family = socket.AF_INET6
 
 if __name__ == '__main__':
-    httpd = HTTPServerV6((config["HOST_NAME"], config["PORT_NUMBER"]), Server)
-    httpd.socket = ssl.wrap_socket (httpd.socket, 
-        keyfile=f"/etc/letsencrypt/live/{config['domain']}/privkey.pem", 
-        certfile=f"/etc/letsencrypt/live/{config['domain']}/fullchain.pem", server_side=True)
+    httpd = HTTPServer((config["HOST_NAME"], config["PORT_NUMBER"]), Server)
+    #httpd.socket = ssl.wrap_socket (httpd.socket, 
+    #    keyfile=f"/etc/letsencrypt/live/{config['domain']}/privkey.pem", 
+    #    certfile=f"/etc/letsencrypt/live/{config['domain']}/fullchain.pem", server_side=True)
     log.info('Server Starts - %s:%s' % (config["HOST_NAME"], config["PORT_NUMBER"]))
     httpd.serve_forever()

@@ -29,6 +29,7 @@ class Server(BaseHTTPRequestHandler):
         if 't' not in params or params['t'][0]!=config["token"]:
             handler=ForbiddenRequestHandler()
             log.warn(f"Unautherised: {self.client_address}")
+            print(f"Unautherised: {self.client_address}")
         else:
             if real_path[1::] in os.listdir("routes"): # prefix is still /
                 handler = CommHandler()
@@ -50,6 +51,7 @@ class Server(BaseHTTPRequestHandler):
         if post_body!=bytes(config["token"],"utf8"):
             handler=ForbiddenRequestHandler()
             log.warn(f"Unautherised: {self.client_address}")
+            print(f"Unautherised: {self.client_address}")
         else:
             if real_path[1::] in os.listdir("routes"):
                 handler = CommHandler()
@@ -68,6 +70,7 @@ class Server(BaseHTTPRequestHandler):
 
         content = handler.getContents()
         self.send_header('Content-type', handler.getContentType())
+        self.send_header('Access-Control-Allow-Origin', '*') # proxy support
 
         self.end_headers()
 

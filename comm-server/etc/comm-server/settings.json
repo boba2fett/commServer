@@ -1,5 +1,5 @@
 {
-    "HOST_NAME" : "::",
+    "HOST_NAME" : "127.0.0.1",
     "PORT_NUMBER" : 9000,
     "domain":"b2f.ddnss.org",
     "token":"OWJlYzcxZTRlNDQyMjE1ZGFiY2FmZmFiM2NiZGE0MWJmNDM0MGFlZWRhNTZlZjRm"
